@@ -14,10 +14,12 @@
     Public SpecularColour As Vec
     Public Shininess As Double
 
+    Public Ambient, Specular, Diffuse As Vec
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         bmp = New Bitmap(PictureBox1.Width, PictureBox1.Height)
         gpx = Graphics.FromImage(bmp)
-
+        Ambient = Sphere.colour * New Vec(1.0, 1.0, 1.0)
         gpx.Clear(Color.Blue)
 
         Draw()
@@ -58,13 +60,13 @@
                     Normal = Normal.Normalize
 
                     'Ambient
-                    Dim Ambient As Vec = Sphere.colour * New Vec(0.5, 0.5, 0.5)
+                    ' Ambient = Sphere.colour * New Vec(0.1, 0.1, 0.1)
 
                     'Diffuse
                     Dim LightRay As Vec = LightPosition - p0
                     LightRay = LightRay.Normalize
 
-                    Dim Diffuse As Vec = DiffuseColour * LightIntensity * GetMAX(0.0, LightRay.Dot(Normal))
+                    Diffuse = DiffuseColour * LightIntensity * GetMAX(0.0, LightRay.Dot(Normal))
 
                     'Specular
                     Dim Reflection As Vec = Normal * (2 * LightRay.Dot(Normal)) - LightRay
@@ -162,6 +164,21 @@
 
     Private Sub Spherez_Scroll(sender As Object, e As EventArgs) Handles Spherez.Scroll
         Sphere.position.z = Spherez.Value
+        Draw()
+    End Sub
+
+    Private Sub kaTB_Scroll(sender As Object, e As EventArgs) Handles kaTB.Scroll
+        Ambient = Sphere.colour * New Vec(kaTB.Value / 10, kaTB.Value / 10, kaTB.Value / 10)
+        Draw()
+    End Sub
+
+    Private Sub kdTB_Scroll(sender As Object, e As EventArgs) Handles kdTB.Scroll
+        Diffuse = New Vec(kdTB.Value / 10, kdTB.Value / 10, kdTB.Value / 10)
+        Draw()
+    End Sub
+
+    Private Sub ksTB_Scroll(sender As Object, e As EventArgs) Handles ksTB.Scroll
+        Specular = New Vec(ksTB.Value / 10, ksTB.Value / 10, ksTB.Value / 10)
         Draw()
     End Sub
 End Class
