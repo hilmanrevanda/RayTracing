@@ -73,11 +73,17 @@
                     Dim Specular As Vec = SpecularColour * LightIntensity * Shininess * Math.Pow(maxCalc, Shininess)
 
 
-                    'Dim LigtHit As Boolean = Sphere.Intersection(t0, (p0 + (Double. * Normal)), LightRay)
+                    Dim LigtHit As Boolean = Sphere.Intersection(t0, (p0 + (Normal * Math.Pow(10.0, -12.0))), LightRay)
 
-                    Dim itot As Vec = Diffuse + Specular
+                    If LigtHit Then
+                        Dim itot As Vec = Sphere.colour * Ambient
 
-                    bmp.SetPixel(i, j, CreateColorVector(New Vec(itot.x * 255, itot.y * 255, itot.z * 255)))
+                        bmp.SetPixel(i, j, CreateColorVector(New Vec(itot.x * 255, itot.y * 255, itot.z * 255)))
+                    Else
+                        Dim itot As Vec = Diffuse + Specular
+
+                        bmp.SetPixel(i, j, CreateColorVector(New Vec(itot.x * 255, itot.y * 255, itot.z * 255)))
+                    End If
                 Else
                     bmp.SetPixel(i, j, Color.White)
                 End If
