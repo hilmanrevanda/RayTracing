@@ -110,6 +110,7 @@
             Return A
         End If
     End Function
+
 End Class
 
 Public Class Sphere
