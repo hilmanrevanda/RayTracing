@@ -60,7 +60,7 @@
                     Normal = Normal.Normalize
 
                     'Ambient
-                    'Ambient = Sphere.colour * New Vec(0.1, 0.1, 0.1)
+                    ' Ambient = Sphere.colour * New Vec(0.1, 0.1, 0.1)
 
                     'Diffuse
                     Dim LightRay As Vec = LightPosition - p0
