@@ -47,6 +47,8 @@
 
                 Dim Hit As Boolean = Sphere.Intersection(t0, rayOrigin, rayDiraction)
 
+                Dim minT As Double = t0
+
                 If Hit Then
 
                     Dim p0 = rayOrigin + rayDiraction * t0
@@ -56,7 +58,7 @@
                     Normal = Normal.Normalize
 
                     'Ambient
-                    Dim Ambient As Vec = Sphere.colour * New Vec(0.1, 0.1, 0.1)
+                    Dim Ambient As Vec = Sphere.colour * New Vec(0.5, 0.5, 0.5)
 
                     'Diffuse
                     Dim LightRay As Vec = LightPosition - p0
@@ -73,15 +75,18 @@
                     Dim Specular As Vec = SpecularColour * LightIntensity * Shininess * Math.Pow(maxCalc, Shininess)
 
 
-                    Dim LigtHit As Boolean = Sphere.Intersection(t0, (p0 + (Normal * Math.Pow(10.0, -12.0))), LightRay)
+                    Dim LigtHit As Boolean = Sphere.Intersection(t0, p0 + (Normal * 0.0001F), LightRay)
 
                     Dim itot As Vec
 
-                    If LigtHit Then
-                        itot = Sphere.colour * Ambient
-                    Else
-                        itot = Diffuse + Specular
-                    End If
+                    'If LigtHit And t0 < minT Then
+                    '    minT = t0
+                    '    itot = Sphere.colour * Ambient
+                    'Else
+                    '    itot = Diffuse + Specular
+                    'End If
+
+                    itot = (Diffuse + Specular) * Ambient
 
                     bmp.SetPixel(i, j, CreateColorVector(New Vec(itot.x * 255, itot.y * 255, itot.z * 255)))
                 Else
