@@ -45,7 +45,7 @@
                 Dim rayDiraction As Vec = PCameraSpace - rayOrigin
                 rayDiraction = rayDiraction.Normalize
 
-                Dim t0 As Double = 0.0F
+                Dim t0 As Double = 0.0
 
                 Dim Hit As Boolean = Sphere.Intersection(t0, rayOrigin, rayDiraction)
 
@@ -77,15 +77,15 @@
 
                     Dim LigtHit As Boolean = Sphere.Intersection(t0, (p0 + (Normal * Math.Pow(10.0, -12.0))), LightRay)
 
+                    Dim itot As Vec
+
                     If LigtHit Then
-                        Dim itot As Vec = Sphere.colour * Ambient
-
-                        bmp.SetPixel(i, j, CreateColorVector(New Vec(itot.x * 255, itot.y * 255, itot.z * 255)))
+                        itot = Sphere.colour * Ambient
                     Else
-                        Dim itot As Vec = Diffuse + Specular
-
-                        bmp.SetPixel(i, j, CreateColorVector(New Vec(itot.x * 255, itot.y * 255, itot.z * 255)))
+                        itot = Diffuse + Specular
                     End If
+
+                    bmp.SetPixel(i, j, CreateColorVector(New Vec(itot.x * 255, itot.y * 255, itot.z * 255)))
                 Else
                     bmp.SetPixel(i, j, Color.White)
                 End If
