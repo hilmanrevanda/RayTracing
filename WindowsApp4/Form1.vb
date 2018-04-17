@@ -41,16 +41,21 @@
                     'Light Properties
                     Dim LightPosition = New Vec(0, 40, 0)
                     Dim LightIntensity = New Vec(1.0, 1.0, 1.0)
-                    Dim DiffuseColour = New Vec(0, 0, 0)
-                    Dim SpecularColour = New Vec(0, 0, 0)
-                    Dim Shininess As Double = 0
+
+                    Dim DiffuseColour
+                    Dim SpecularColour
+                    Dim Shininess As Double
+
+                    'Normal
+                    Dim Normal As Vec = sphere.CalculateNormal(p0, Shininess, DiffuseColour, SpecularColour) 'Calculate normal
+                    Normal = Normal.Normalize
+
+                    'Ambient
+                    Dim Ambient As Vec = sphere.colour * New Vec(0.1, 0.1, 0.1)
 
                     'Diffuse
                     Dim LightRay As Vec = LightPosition - p0
                     LightRay = LightRay.Normalize
-
-                    Dim Normal As Vec = sphere.CalculateNormal(p0, Shininess, DiffuseColour, SpecularColour)
-                    Normal = Normal.Normalize
 
                     Dim Diffuse As Vec = DiffuseColour * LightIntensity * GetMAX(0.0, LightRay.Dot(Normal))
 
