@@ -31,6 +31,8 @@ Partial Class Form1
         Me.Spherex = New System.Windows.Forms.TrackBar()
         Me.Spherey = New System.Windows.Forms.TrackBar()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.nTB = New System.Windows.Forms.TrackBar()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -50,6 +52,7 @@ Partial Class Form1
         CType(Me.Spherex, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Spherey, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.nTB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.kdTB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.kaTB, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ksTB, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -145,6 +148,8 @@ Partial Class Form1
         'GroupBox2
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.Black
+        Me.GroupBox2.Controls.Add(Me.nTB)
+        Me.GroupBox2.Controls.Add(Me.Label9)
         Me.GroupBox2.Controls.Add(Me.Label8)
         Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Controls.Add(Me.Label6)
@@ -153,17 +158,34 @@ Partial Class Form1
         Me.GroupBox2.Controls.Add(Me.ksTB)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.ForeColor = System.Drawing.Color.White
-        Me.GroupBox2.Location = New System.Drawing.Point(464, 197)
+        Me.GroupBox2.Location = New System.Drawing.Point(393, 197)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(357, 181)
+        Me.GroupBox2.Size = New System.Drawing.Size(473, 181)
         Me.GroupBox2.TabIndex = 23
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Coefficient"
+        Me.GroupBox2.Text = "Coefficient and Intensity"
+        '
+        'nTB
+        '
+        Me.nTB.Location = New System.Drawing.Point(289, 25)
+        Me.nTB.Maximum = 100
+        Me.nTB.Name = "nTB"
+        Me.nTB.Size = New System.Drawing.Size(138, 45)
+        Me.nTB.TabIndex = 19
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(254, 25)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(18, 20)
+        Me.Label9.TabIndex = 18
+        Me.Label9.Text = "n"
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(31, 129)
+        Me.Label8.Location = New System.Drawing.Point(12, 125)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(72, 20)
         Me.Label8.TabIndex = 17
@@ -172,7 +194,7 @@ Partial Class Form1
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(31, 77)
+        Me.Label7.Location = New System.Drawing.Point(12, 73)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(60, 20)
         Me.Label7.TabIndex = 16
@@ -181,7 +203,7 @@ Partial Class Form1
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(31, 29)
+        Me.Label6.Location = New System.Drawing.Point(12, 25)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(68, 20)
         Me.Label6.TabIndex = 15
@@ -189,23 +211,23 @@ Partial Class Form1
         '
         'kdTB
         '
-        Me.kdTB.Location = New System.Drawing.Point(126, 77)
+        Me.kdTB.Location = New System.Drawing.Point(86, 77)
         Me.kdTB.Name = "kdTB"
-        Me.kdTB.Size = New System.Drawing.Size(186, 45)
+        Me.kdTB.Size = New System.Drawing.Size(138, 45)
         Me.kdTB.TabIndex = 13
         '
         'kaTB
         '
-        Me.kaTB.Location = New System.Drawing.Point(126, 25)
+        Me.kaTB.Location = New System.Drawing.Point(86, 25)
         Me.kaTB.Name = "kaTB"
-        Me.kaTB.Size = New System.Drawing.Size(186, 45)
+        Me.kaTB.Size = New System.Drawing.Size(138, 45)
         Me.kaTB.TabIndex = 12
         '
         'ksTB
         '
-        Me.ksTB.Location = New System.Drawing.Point(126, 129)
+        Me.ksTB.Location = New System.Drawing.Point(86, 129)
         Me.ksTB.Name = "ksTB"
-        Me.ksTB.Size = New System.Drawing.Size(186, 45)
+        Me.ksTB.Size = New System.Drawing.Size(138, 45)
         Me.ksTB.TabIndex = 14
         '
         'GroupBox1
@@ -305,6 +327,7 @@ Partial Class Form1
         CType(Me.Spherey, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.nTB, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.kdTB, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.kaTB, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ksTB, System.ComponentModel.ISupportInitialize).EndInit()
@@ -339,4 +362,6 @@ Partial Class Form1
     Friend WithEvents Lightx As TrackBar
     Friend WithEvents Spherez As TrackBar
     Friend WithEvents Label12 As Label
+    Friend WithEvents nTB As TrackBar
+    Friend WithEvents Label9 As Label
 End Class

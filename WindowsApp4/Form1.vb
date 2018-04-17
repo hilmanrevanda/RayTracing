@@ -16,10 +16,14 @@
 
     Public Ambient, Specular, Diffuse As Vec
 
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         bmp = New Bitmap(PictureBox1.Width, PictureBox1.Height)
         gpx = Graphics.FromImage(bmp)
         Ambient = Sphere.colour * New Vec(1.0, 1.0, 1.0)
+        DiffuseColour = Sphere.colour
+        SpecularColour = New Vec(0.7, 0.7, 0.7)
+
         gpx.Clear(Color.Blue)
 
         Draw()
@@ -172,13 +176,18 @@
         Draw()
     End Sub
 
+    Private Sub nTB_Scroll(sender As Object, e As EventArgs) Handles nTB.Scroll
+        Shininess = nTB.Value
+        Draw()
+    End Sub
+
     Private Sub kdTB_Scroll(sender As Object, e As EventArgs) Handles kdTB.Scroll
-        Diffuse = New Vec(kdTB.Value / 10, kdTB.Value / 10, kdTB.Value / 10)
+        DiffuseColour = Sphere.colour * kdTB.Value / 10
         Draw()
     End Sub
 
     Private Sub ksTB_Scroll(sender As Object, e As EventArgs) Handles ksTB.Scroll
-        Specular = New Vec(ksTB.Value / 10, ksTB.Value / 10, ksTB.Value / 10)
+        SpecularColour = New Vec(ksTB.Value, ksTB.Value, ksTB.Value)
         Draw()
     End Sub
 End Class
@@ -215,9 +224,9 @@ Public Class Sphere
     End Function
 
     Public Function CalculateNormal(p0 As Vec, ByRef shininess As Integer, ByRef diffuseColour As Vec, ByRef specularColour As Vec) As Vec
-        shininess = 128
-        diffuseColour = colour
-        specularColour = New Vec(0.7, 0.7, 0.7)
+
+        'diffuseColour = colour
+        'specularColour = New Vec(0.7, 0.7, 0.7)
         Return p0 - position
     End Function
 End Class
