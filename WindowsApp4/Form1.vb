@@ -3,12 +3,27 @@
     Public bmp As Bitmap
     Public gpx As Graphics
 
+    Public Sphere As Sphere = New Sphere(New Vec(0, 0, -40), 4, New Vec(1.0, 0.32, 0.36))
+
+    'Light Properties
+    Public LightPosition As Vec = New Vec(0, 20, 0)
+    Public LightPosition2 As Vec = New Vec(0, 20, 0)
+    Public LightIntensity = New Vec(1.0, 1.0, 1.0)
+
+    Public DiffuseColour As Vec
+    Public SpecularColour As Vec
+    Public Shininess As Double
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         bmp = New Bitmap(PictureBox1.Width, PictureBox1.Height)
         gpx = Graphics.FromImage(bmp)
 
         gpx.Clear(Color.Blue)
 
+        Draw()
+    End Sub
+
+    Sub Draw()
         For i = 0 To bmp.Width - 1
             For j = 0 To bmp.Height - 1
 
@@ -30,28 +45,18 @@
 
                 Dim t0 As Double = 0.0F
 
-                Dim sphere As Sphere = New Sphere(New Vec(0, 0, -40), 4, New Vec(1.0, 0.32, 0.36))
-
-                Dim Hit As Boolean = sphere.Intersection(t0, rayOrigin, rayDiraction)
+                Dim Hit As Boolean = Sphere.Intersection(t0, rayOrigin, rayDiraction)
 
                 If Hit Then
 
                     Dim p0 = rayOrigin + rayDiraction * t0
 
-                    'Light Properties
-                    Dim LightPosition = New Vec(0, 40, 0)
-                    Dim LightIntensity = New Vec(1.0, 1.0, 1.0)
-
-                    Dim DiffuseColour
-                    Dim SpecularColour
-                    Dim Shininess As Double
-
                     'Normal
-                    Dim Normal As Vec = sphere.CalculateNormal(p0, Shininess, DiffuseColour, SpecularColour) 'Calculate normal
+                    Dim Normal As Vec = Sphere.CalculateNormal(p0, Shininess, DiffuseColour, SpecularColour) 'Calculate normal
                     Normal = Normal.Normalize
 
                     'Ambient
-                    Dim Ambient As Vec = sphere.colour * New Vec(0.1, 0.1, 0.1)
+                    Dim Ambient As Vec = Sphere.colour * New Vec(0.1, 0.1, 0.1)
 
                     'Diffuse
                     Dim LightRay As Vec = LightPosition - p0
@@ -66,6 +71,9 @@
                     Dim tst As Vec = rayOrigin - p0
                     Dim maxCalc As Double = GetMAX(0.0, Reflection.Dot(tst.Normalize))
                     Dim Specular As Vec = SpecularColour * LightIntensity * Shininess * Math.Pow(maxCalc, Shininess)
+
+
+                    'Dim LigtHit As Boolean = Sphere.Intersection(t0, (p0 + (Double. * Normal)), LightRay)
 
                     Dim itot As Vec = Diffuse + Specular
 
@@ -116,6 +124,35 @@
         End If
     End Function
 
+    Private Sub Lighty_Scroll(sender As Object, e As EventArgs) Handles Lighty.Scroll
+        LightPosition.y = Lighty.Value
+        Draw()
+    End Sub
+
+    Private Sub Lightx_Scroll(sender As Object, e As EventArgs) Handles Lightx.Scroll
+        LightPosition.x = Lightx.Value
+        Draw()
+    End Sub
+
+    Private Sub Lightz_Scroll(sender As Object, e As EventArgs) Handles Lightz.Scroll
+        LightPosition.z = Lightz.Value
+        Draw()
+    End Sub
+
+    Private Sub Spherex_Scroll(sender As Object, e As EventArgs) Handles Spherex.Scroll
+        Sphere.position.x = Spherex.Value
+        Draw()
+    End Sub
+
+    Private Sub Spherey_Scroll(sender As Object, e As EventArgs) Handles Spherey.Scroll
+        Sphere.position.y = Spherey.Value
+        Draw()
+    End Sub
+
+    Private Sub Spherez_Scroll(sender As Object, e As EventArgs) Handles Spherez.Scroll
+        Sphere.position.z = Spherez.Value
+        Draw()
+    End Sub
 End Class
 
 Public Class Sphere
